@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lancet General Hospital</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Add the image as a label -->
+        <div class="logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9H-IjA_UOslMNM4mZ2hFG43ewzrAx3oaBtg&s" alt="Lancet General Hospital Logo">
+        </div>
+
+        <h1>Lancet General Hospital</h1>
+        <p>Choose a Specialty, Sub-Specialty, and Doctor to view more information</p>
+
+        <!-- Specialty Selection -->
+        <div class="form-group">
+            <label for="specialty">Select Specialty:</label>
+            <select id="specialty">
+                <option value="" disabled selected>Select a Specialty</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="General Surgery">General Surgery</option>
+                <!-- More specialties can be added as needed -->
+            </select>
+        </div>
+
+        <!-- Sub-Specialty Selection -->
+        <div class="form-group">
+            <label for="subSpecialty">Select Sub-Specialty:</label>
+            <select id="subSpecialty" disabled>
+                <option value="" disabled selected>Select a Sub-Specialty</option>
+                <!-- Populated dynamically based on specialty -->
+            </select>
+        </div>
+
+        <!-- Doctor Selection -->
+        <div class="form-group">
+            <label for="doctor">Select Doctor:</label>
+            <select id="doctor" disabled>
+                <option value="" disabled selected>Select a Doctor</option>
+                <!-- Populated dynamically based on sub-specialty -->
+            </select>
+        </div>
+
+        <!-- Display Doctor Info -->
+        <div id="doctorInfo" class="info-box"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
