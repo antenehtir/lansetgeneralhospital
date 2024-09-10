@@ -1,59 +1,47 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // List of specialties and sub-specialties
+    // List of specialties and doctors with their schedules
     const specialties = {
-        "Cardiology": ["Interventional Cardiology", "Electrophysiology", "General Cardiology"],
-        "Neurology": ["Pediatric Neurology", "Stroke", "Neuro-Oncology"],
-        "Orthopedics": ["Sports Medicine", "Joint Replacement", "Trauma Surgery"],
-        "Pediatrics": ["Neonatology", "Pediatric Oncology", "Pediatric Surgery"],
-        "General Surgery": ["Colorectal Surgery", "Hepatobiliary Surgery", "Trauma Surgery"]
+        "Cardiology": ["Dr. Seyfemichael Getachew"],
+        "Endocrinology": ["Dr. Rediet Ambachew"],
+        "Urology": ["Dr. Seid Mohammed"],
+        "Dermatology": ["Dr. Selamawit Worku"],
+        "Pediatrics": ["Dr. Selamawit Assefa"],
+        "Nephrology": ["Dr. Seyfemichael Getachew"],
+        "Internal Medicine": ["Dr. Serkalem Nurilign", "Dr. Seyfemichael Getachew"],
+        "Obstetrics & Gynecology": ["Dr. Sisay Teklu"],
+        "Radiology": ["Dr. Assefa Getachew"],
+        "Neurosurgery": ["Dr. Kibruyisfaw Zewdie"],
+        "Maxillofacial Surgery": ["Dr. Shimelis Megersa"]
     };
 
-    // List of doctors per sub-specialty
-    const doctors = {
-        "Interventional Cardiology": ["Dr. John Doe", "Dr. Jane Smith"],
-        "Electrophysiology": ["Dr. William Brown"],
-        "General Cardiology": ["Dr. Susan Green"],
-        "Pediatric Neurology": ["Dr. Michael White"],
-        "Stroke": ["Dr. Sarah Johnson"],
-        // Add more doctors based on sub-specialties
+    // Schedules for each doctor
+    const doctorSchedules = {
+        "Dr. Seyfemichael Getachew": "Monday, Tuesday, Thursday, Saturday: 9:00 LT, Fridays: 5:00 LT",
+        "Dr. Rediet Ambachew": "Tuesday: 6:00 LT, Monday, Wednesday, Friday: 8:00 LT, Saturday: 3:00 LT",
+        "Dr. Seid Mohammed": "Monday: 5:00 LT, Tuesday, Thursday: 10:00 LT, Friday: 9:00 LT",
+        "Dr. Selamawit Worku": "Tuesday, Thursday: 2:00 PM, Wednesday, Saturday: 10:00 AM",
+        "Dr. Selamawit Assefa": "Monday-Saturday during working hours",
+        "Dr. Serkalem Nurilign": "Monday-Friday: 8:00 AM - 5:00 PM, Saturday: 8:00 AM - 12:00 PM",
+        "Dr. Sisay Teklu": "Monday, Wednesday, Friday: Afternoon, Saturday: Morning",
+        "Dr. Assefa Getachew": "Wednesday: 11:00 LT",
+        "Dr. Kibruyisfaw Zewdie": "Tuesday, Thursday: 9:00 LT, Saturday: 7:00 LT",
+        "Dr. Shimelis Megersa": "Monday, Wednesday: 7:00 LT"
     };
 
-    // Get DOM elements
     const specialtySelect = document.getElementById('specialty');
     const subSpecialtySelect = document.getElementById('subSpecialty');
     const doctorSelect = document.getElementById('doctor');
     const doctorInfo = document.getElementById('doctorInfo');
 
-    // Event Listener: Populate sub-specialty options when a specialty is selected
+    // Event Listener: Populate doctors when a specialty is selected
     specialtySelect.addEventListener('change', function() {
         const selectedSpecialty = specialtySelect.value;
-        subSpecialtySelect.innerHTML = '<option value="" disabled selected>Select a Sub-Specialty</option>';
-
-        // Populate sub-specialties for the selected specialty
-        if (specialties[selectedSpecialty]) {
-            subSpecialtySelect.disabled = false;
-            specialties[selectedSpecialty].forEach(sub => {
-                const option = document.createElement('option');
-                option.value = sub;
-                option.textContent = sub;
-                subSpecialtySelect.appendChild(option);
-            });
-        } else {
-            subSpecialtySelect.disabled = true;
-        }
-        doctorSelect.disabled = true;
-        doctorInfo.innerHTML = ''; // Clear doctor info
-    });
-
-    // Event Listener: Populate doctors when a sub-specialty is selected
-    subSpecialtySelect.addEventListener('change', function() {
-        const selectedSubSpecialty = subSpecialtySelect.value;
         doctorSelect.innerHTML = '<option value="" disabled selected>Select a Doctor</option>';
 
-        // Populate doctors for the selected sub-specialty
-        if (doctors[selectedSubSpecialty]) {
+        // Populate doctors based on the selected specialty
+        if (specialties[selectedSpecialty]) {
             doctorSelect.disabled = false;
-            doctors[selectedSubSpecialty].forEach(doc => {
+            specialties[selectedSpecialty].forEach(doc => {
                 const option = document.createElement('option');
                 option.value = doc;
                 option.textContent = doc;
@@ -65,9 +53,13 @@ document.addEventListener('DOMContentLoaded', function() {
         doctorInfo.innerHTML = ''; // Clear doctor info
     });
 
-    // Event Listener: Display doctor info when a doctor is selected
+    // Event Listener: Display doctor schedule when a doctor is selected
     doctorSelect.addEventListener('change', function() {
         const selectedDoctor = doctorSelect.value;
-        doctorInfo.innerHTML = `<strong>${selectedDoctor}</strong> is available on the following dates, please proceed with the booking.`;
+        if (doctorSchedules[selectedDoctor]) {
+            doctorInfo.innerHTML = `<strong>${selectedDoctor}</strong> is available during these times: ${doctorSchedules[selectedDoctor]}`;
+        } else {
+            doctorInfo.innerHTML = "No schedule available for the selected doctor.";
+        }
     });
 });
