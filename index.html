@@ -13,8 +13,17 @@
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9H-IjA_UOslMNM4mZ2hFG43ewzrAx3oaBtg&s" alt="Lancet General Hospital Logo">
         </div>
 
+        <!-- Language selection -->
+        <div class="form-group">
+            <label for="langSelect">Choose Language:</label>
+            <select id="langSelect">
+                <option value="en" selected>English</option>
+                <option value="am">አማርኛ</option>
+            </select>
+        </div>
+
         <h1>Lancet General Hospital</h1>
-        <p>Choose a Specialty/Sub-Speciality and Doctor to view the schedule and book an appointment</p>
+        <p>Choose a Specialty and Doctor to view the schedule and book an appointment</p>
 
         <!-- Specialty Selection -->
         <div class="form-group">
@@ -43,6 +52,9 @@
                 <!-- Populated dynamically based on specialty -->
             </select>
         </div>
+
+        <!-- Reset Button -->
+        <button id="resetButton">Reset</button>
 
         <!-- Display Doctor Info -->
         <div id="doctorInfo" class="info-box"></div>
