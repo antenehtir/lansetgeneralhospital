@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const specialtySelect = document.getElementById('specialty');
-    const subSpecialtySelect = document.getElementById('subSpecialty');
     const doctorSelect = document.getElementById('doctor');
     const doctorInfo = document.getElementById('doctorInfo');
 
@@ -53,11 +52,16 @@ document.addEventListener('DOMContentLoaded', function() {
         doctorInfo.innerHTML = ''; // Clear doctor info
     });
 
-    // Event Listener: Display doctor schedule when a doctor is selected
+    // Event Listener: Display doctor schedule and appointment info when a doctor is selected
     doctorSelect.addEventListener('change', function() {
         const selectedDoctor = doctorSelect.value;
         if (doctorSchedules[selectedDoctor]) {
-            doctorInfo.innerHTML = `<strong>${selectedDoctor}</strong> is available during these times: ${doctorSchedules[selectedDoctor]}`;
+            doctorInfo.innerHTML = `
+                <strong>${selectedDoctor}</strong> is available during these times: ${doctorSchedules[selectedDoctor]}<br><br>
+                <strong>Book an appointment:</strong><br>
+                Call: <a href="tel:+2519171">9171/0977717171</a> <br>
+                Or <a href="https://lancethealthservices.com/appointment.html" target="_blank">use this link</a>.
+            `;
         } else {
             doctorInfo.innerHTML = "No schedule available for the selected doctor.";
         }
