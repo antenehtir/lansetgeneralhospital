@@ -14,16 +14,16 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const doctorSchedules = {
-        "Dr. Seyfemichael Getachew": "Monday, Tuesday, Thursday, Saturday: 9:00 LT, Fridays: 5:00 LT",
-        "Dr. Rediet Ambachew": "Tuesday: 6:00 LT, Monday, Wednesday, Friday: 8:00 LT, Saturday: 3:00 LT",
-        "Dr. Seid Mohammed": "Monday: 5:00 LT, Tuesday, Thursday: 10:00 LT, Friday: 9:00 LT",
-        "Dr. Selamawit Worku": "Tuesday, Thursday: 2:00 PM, Wednesday, Saturday: 10:00 AM",
-        "Dr. Selamawit Assefa": "Monday-Saturday during working hours",
-        "Dr. Serkalem Nurilign": "Monday-Friday: 8:00 AM - 5:00 PM, Saturday: 8:00 AM - 12:00 PM",
-        "Dr. Sisay Teklu": "Monday, Wednesday, Friday: Afternoon, Saturday: Morning",
-        "Dr. Assefa Getachew": "Wednesday: 11:00 LT",
-        "Dr. Kibruyisfaw Zewdie": "Tuesday, Thursday: 9:00 LT, Saturday: 7:00 LT",
-        "Dr. Shimelis Megersa": "Monday, Wednesday: 7:00 LT"
+        "Dr. Seyfemichael Getachew": "እሁድ, ሰኞ, ሐሙስ, ቅዳሜ: 9:00 LT, አርብ: 5:00 LT",
+        "Dr. Rediet Ambachew": "ማክሰኞ: 6:00 LT, ሰኞ, እሮብ, አርብ: 8:00 LT, ቅዳሜ: 3:00 LT",
+        "Dr. Seid Mohammed": "ሰኞ: 5:00 LT, ማክሰኞ, ሐሙስ: 10:00 LT, አርብ: 9:00 LT",
+        "Dr. Selamawit Worku": "ማክሰኞ, ሐሙስ: 2:00 PM, እሮብ, ቅዳሜ: 10:00 AM",
+        "Dr. Selamawit Assefa": "ሰኞ - ቅዳሜ: እኩለ ቀን ውስጥ",
+        "Dr. Serkalem Nurilign": "ሰኞ - አርብ: 8:00 AM - 5:00 PM, ቅዳሜ: 8:00 AM - 12:00 PM",
+        "Dr. Sisay Teklu": "ሰኞ, እሮብ, አርብ: ከሰዓት በኋላ, ቅዳሜ: ጠዋት",
+        "Dr. Assefa Getachew": "እሮብ: 11:00 LT",
+        "Dr. Kibruyisfaw Zewdie": "ማክሰኞ, ሐሙስ: 9:00 LT, ቅዳሜ: 7:00 LT",
+        "Dr. Shimelis Megersa": "ሰኞ, እሮብ: 7:00 LT"
     };
 
     const specialtySelect = document.getElementById('specialty');
@@ -58,7 +58,23 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('label[for="specialty"]').textContent = translations[selectedLang].selectSpecialty;
         document.querySelector('label[for="doctor"]').textContent = translations[selectedLang].selectDoctor;
         resetButton.textContent = translations[selectedLang].reset;
+        // Update existing doctor info to reflect language
+        if (doctorInfo.innerHTML) {
+            updateDoctorInfoLanguage(selectedLang);
+        }
     });
+
+    // Update doctor info content based on language
+    function updateDoctorInfoLanguage(lang) {
+        const selectedDoctor = doctorSelect.value;
+        if (doctorSchedules[selectedDoctor]) {
+            doctorInfo.innerHTML = `
+                <strong>${selectedDoctor}</strong> ${translations[lang].bookAppointment}<br><br>
+                ${translations[lang].call} <a href="tel:+2519171">9171/0977717171</a> <br>
+                ${translations[lang].useThisLink}: <a href="https://lancethealthservices.com/appointment.html" target="_blank">${translations[lang].useThisLink}</a>
+            `;
+        }
+    }
 
     // Event Listener: Populate doctors when a specialty is selected
     specialtySelect.addEventListener('change', function() {
@@ -83,17 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
     doctorSelect.addEventListener('change', function() {
         const selectedLang = langSelect.value;
         const selectedDoctor = doctorSelect.value;
-
-        if (doctorSchedules[selectedDoctor]) {
-            doctorInfo.innerHTML = `
-                <strong>${selectedDoctor}</strong> is available during these times: ${doctorSchedules[selectedDoctor]}<br><br>
-                <strong>${translations[selectedLang].bookAppointment}</strong><br>
-                ${translations[selectedLang].call} <a href="tel:+2519171">9171/0977717171</a> <br>
-                ${translations[selectedLang].useThisLink}: <a href="https://lancethealthservices.com/appointment.html" target="_blank">${translations[selectedLang].useThisLink}</a>
-            `;
-        } else {
-            doctorInfo.innerHTML = "No schedule available for the selected doctor.";
-        }
+        updateDoctorInfoLanguage(selectedLang);
     });
 
     // Reset Button Listener
